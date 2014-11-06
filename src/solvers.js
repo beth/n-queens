@@ -38,7 +38,7 @@ window.findNRooksSolution = function(n) {
       }else{
         for(var c = 0; c<n;c++){
           board.togglePiece(rowToPlace,c);
-          if(board.hasAnyRooksConflicts()){
+          if(board.hasAnyRooksConflictsOpt()){
             board.togglePiece(rowToPlace,c);
           }else{
             recursivePlacement(rowToPlace+1);
@@ -51,7 +51,7 @@ window.findNRooksSolution = function(n) {
 
   recursivePlacement(0);
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(result));
+  //console.log('Single solution for ' + n + ' rooks:', JSON.stringify(result));
   return result;
 };
 
@@ -67,7 +67,7 @@ window.countNRooksSolutions = function(n) {
     }else{
       for(var c = 0; c<n;c++){
         board.togglePiece(rowToPlace,c);
-        if(board.hasAnyRooksConflicts()){
+        if(board.hasAnyRooksConflictsOpt()){
           board.togglePiece(rowToPlace,c);
         }else{
           recursivePlacement(rowToPlace+1);
@@ -79,7 +79,7 @@ window.countNRooksSolutions = function(n) {
 
   recursivePlacement(0);
 
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  //console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
 
@@ -99,7 +99,7 @@ window.findNQueensSolution = function(n) {
       }else{
         for(var c = 0; c<n;c++){
           board.togglePiece(rowToPlace,c);
-          if(board.hasAnyQueensConflicts()){
+          if(board.hasAnyQueensConflictsOpt()){
             board.togglePiece(rowToPlace,c);
           }else{
             recursivePlacement(rowToPlace+1);
@@ -112,7 +112,7 @@ window.findNQueensSolution = function(n) {
 
   recursivePlacement(0);
 
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(result));
+  //console.log('Single solution for ' + n + ' queens:', JSON.stringify(result));
   return result;
 };
 
@@ -128,7 +128,7 @@ window.countNQueensSolutions = function(n) {
     }else{
       for(var c = 0; c<n;c++){
         board.togglePiece(rowToPlace,c);
-        if(board.hasAnyQueensConflicts()){
+        if(board.hasAnyQueensConflictsOpt()){
           board.togglePiece(rowToPlace,c);
         }else{
           recursivePlacement(rowToPlace+1);
@@ -140,6 +140,6 @@ window.countNQueensSolutions = function(n) {
 
   recursivePlacement(0);
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  //console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };

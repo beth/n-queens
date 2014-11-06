@@ -41,6 +41,10 @@
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
     },
 
+    hasAnyRooksConflictsOpt: function() {
+      return this.hasAnyColConflicts();
+    },
+
     hasAnyQueenConflictsOn: function(rowIndex, colIndex) {
       return (
         this.hasRowConflictAt(rowIndex) ||
@@ -52,6 +56,10 @@
 
     hasAnyQueensConflicts: function() {
       return this.hasAnyRooksConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
+    },
+
+    hasAnyQueensConflictsOpt: function() {
+      return this.hasAnyColConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
     },
 
     _isInBounds: function(rowIndex, colIndex) {
