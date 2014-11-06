@@ -37,7 +37,7 @@ window.findNRooksSolution = function(n) {
         }
       }
     }
-  };*/
+  };
   var count =0;
   var placeNext = function(currentBoard,leftToPlace,row,col){
     if(!(currentBoard.get(row)[col])){
@@ -46,6 +46,10 @@ window.findNRooksSolution = function(n) {
       if(leftToPlace===0 && !currentBoard.hasAnyRooksConflicts())
       {
         solution = currentBoard.rows();
+        if(n===2){
+          console.log(JSON.stringify(solution));
+        }
+
         count++;
       }else if(!currentBoard.hasAnyRooksConflicts()){
         for(var i =0;i<n;i++){
@@ -64,21 +68,97 @@ window.findNRooksSolution = function(n) {
     for(var j =0; j<n;j++){
       placeNext(new Board({n:n}),n,i,j);
     }
-  }
+  };*/
+  var board = new Board({n:n});
+  var result = [];
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  console.log('solutions found:' + count);
-  return solution;
+
+  var deepCopyMatrix = function(array){
+    var result = [];
+    for(var i = 0; i<array.length;i++){
+      var intermediate = [];
+      for(var j = 0; j<array[i].length;j++){
+        intermediate.push(array[i][j]);
+      }
+      result.push(intermediate);
+    }
+    return result;
+  };
+
+  var recursivePlacement = function(rowToPlace){
+    if(rowToPlace === n){
+      result.push(deepCopyMatrix(board.rows()));
+      // console.log('what');
+      // solution = Array.prototype.slice.call(board.rows());
+      // results.push(board.rows());
+      // console.log(solution);
+    }else{
+      for(var c = 0; c<n;c++){
+        board.togglePiece(rowToPlace,c);
+        if(board.hasAnyRooksConflicts()){
+          board.togglePiece(rowToPlace,c);
+        }else{
+          recursivePlacement(rowToPlace+1);
+          board.togglePiece(rowToPlace,c);
+        }
+      }
+    }
+  };
+
+  recursivePlacement(0);
+
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(result[0]));
+  console.log('solutions found:' + result.length);
+  return result[0];
 };
 
 
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+  var board = new Board({n:n});
+  var result = [];
 
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+
+  var deepCopyMatrix = function(array){
+    var result = [];
+    for(var i = 0; i<array.length;i++){
+      var intermediate = [];
+      for(var j = 0; j<array[i].length;j++){
+        intermediate.push(array[i][j]);
+      }
+      result.push(intermediate);
+    }
+    return result;
+  };
+
+  var recursivePlacement = function(rowToPlace){
+    if(rowToPlace === n){
+      result.push(deepCopyMatrix(board.rows()));
+      // console.log('what');
+      // solution = Array.prototype.slice.call(board.rows());
+      // results.push(board.rows());
+      // console.log(solution);
+    }else{
+      for(var c = 0; c<n;c++){
+        board.togglePiece(rowToPlace,c);
+        if(board.hasAnyRooksConflicts()){
+          board.togglePiece(rowToPlace,c);
+        }else{
+          recursivePlacement(rowToPlace+1);
+          board.togglePiece(rowToPlace,c);
+        }
+      }
+    }
+  };
+
+  recursivePlacement(0);
+
+
+
+  console.log('Number of solutions for ' + n + ' rooks:', result.length);
+  return result.length;
 };
 
 
@@ -87,15 +167,94 @@ window.countNRooksSolutions = function(n) {
 window.findNQueensSolution = function(n) {
   var solution = undefined; //fixme
 
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  var board = new Board({n:n});
+  var result = [];
+
+
+  var deepCopyMatrix = function(array){
+    var result = [];
+    for(var i = 0; i<array.length;i++){
+      var intermediate = [];
+      for(var j = 0; j<array[i].length;j++){
+        intermediate.push(array[i][j]);
+      }
+      result.push(intermediate);
+    }
+    return result;
+  };
+
+  var recursivePlacement = function(rowToPlace){
+    if(rowToPlace === n){
+      result.push(deepCopyMatrix(board.rows()));
+      // console.log('what');
+      // solution = Array.prototype.slice.call(board.rows());
+      // results.push(board.rows());
+      // console.log(solution);
+    }else{
+      for(var c = 0; c<n;c++){
+        board.togglePiece(rowToPlace,c);
+        if(board.hasAnyQueensConflicts()){
+          board.togglePiece(rowToPlace,c);
+        }else{
+          recursivePlacement(rowToPlace+1);
+          board.togglePiece(rowToPlace,c);
+        }
+      }
+    }
+  };
+
+  recursivePlacement(0);
+
+  console.log('Single solution for ' + n + ' queens:', JSON.stringify(result[0]));
+  console.log('solutions found:' + result.length);
+  return result[0];
 };
 
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+  var board = new Board({n:n});
+  var result = [];
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+
+  var deepCopyMatrix = function(array){
+    var result = [];
+    for(var i = 0; i<array.length;i++){
+      var intermediate = [];
+      for(var j = 0; j<array[i].length;j++){
+        intermediate.push(array[i][j]);
+      }
+      result.push(intermediate);
+    }
+    return result;
+  };
+
+  var recursivePlacement = function(rowToPlace){
+    if(rowToPlace === n){
+      result.push(deepCopyMatrix(board.rows()));
+      // console.log('what');
+      // solution = Array.prototype.slice.call(board.rows());
+      // results.push(board.rows());
+      // console.log(solution);
+    }else{
+      for(var c = 0; c<n;c++){
+        board.togglePiece(rowToPlace,c);
+        if(board.hasAnyQueensConflicts()){
+          board.togglePiece(rowToPlace,c);
+        }else{
+          recursivePlacement(rowToPlace+1);
+          board.togglePiece(rowToPlace,c);
+        }
+      }
+    }
+  };
+
+  recursivePlacement(0);
+
+
+
+  console.log('Number of solutions for ' + n + ' queens:', result.length);
+  return result.length;
+
 };
