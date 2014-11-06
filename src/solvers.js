@@ -29,20 +29,28 @@ window.findNRooksSolution = function(n) {
   var board = new Board({n:n});
   var result;
   var found = false;
-
+  var colUsed = [];
+  for(var i =0; i<n;i++){
+    colUsed.push(false);
+  }
   var recursivePlacement = function(rowToPlace){
     if(!found) {
       if(rowToPlace === n){
-        result =(deepCopyMatrix(board.rows()));
+        result = deepCopyMatrix(board.rows());
         found = true;
       }else{
         for(var c = 0; c<n;c++){
-          board.togglePiece(rowToPlace,c);
-          if(board.hasAnyRooksConflictsOpt()){
+          if(!colUsed[c])
+          {
             board.togglePiece(rowToPlace,c);
-          }else{
-            recursivePlacement(rowToPlace+1);
-            board.togglePiece(rowToPlace,c);
+            if(board.hasAnyRooksConflictsOpt()){
+              board.togglePiece(rowToPlace,c);
+            }else{
+              colUsed[c]= true;
+              recursivePlacement(rowToPlace+1);
+              board.togglePiece(rowToPlace,c);
+              colUsed[c]=false;
+            }
           }
         }
       }
@@ -60,18 +68,26 @@ window.findNRooksSolution = function(n) {
 window.countNRooksSolutions = function(n) {
   var solutionCount = 0; //fixme
   var board = new Board({n:n});
+  var colUsed = [];
+  for(var i =0; i<n;i++){
+    colUsed.push(false);
+  }
 
   var recursivePlacement = function(rowToPlace){
     if(rowToPlace === n){
       solutionCount++;
     }else{
       for(var c = 0; c<n;c++){
-        board.togglePiece(rowToPlace,c);
-        if(board.hasAnyRooksConflictsOpt()){
+        if(!colUsed[c]){
           board.togglePiece(rowToPlace,c);
-        }else{
-          recursivePlacement(rowToPlace+1);
-          board.togglePiece(rowToPlace,c);
+          if(board.hasAnyRooksConflictsOpt()){
+            board.togglePiece(rowToPlace,c);
+          }else{
+            colUsed[c]=true;
+            recursivePlacement(rowToPlace+1);
+            board.togglePiece(rowToPlace,c);
+            colUsed[c]=false;
+          }
         }
       }
     }
@@ -91,6 +107,11 @@ window.findNQueensSolution = function(n) {
   var result;
   var found = false;
 
+  var colUsed = [];
+  for(var i =0; i<n;i++){
+    colUsed.push(false);
+  }
+
   var recursivePlacement = function(rowToPlace){
     if (!found) {
       if(rowToPlace === n){
@@ -98,12 +119,14 @@ window.findNQueensSolution = function(n) {
         found = true;
       }else{
         for(var c = 0; c<n;c++){
-          board.togglePiece(rowToPlace,c);
-          if(board.hasAnyQueensConflictsOpt()){
+          if(!colUsed[c]){
             board.togglePiece(rowToPlace,c);
-          }else{
-            recursivePlacement(rowToPlace+1);
-            board.togglePiece(rowToPlace,c);
+            if(board.hasAnyQueensConflictsOpt()){
+              board.togglePiece(rowToPlace,c);
+            }else{
+              recursivePlacement(rowToPlace+1);
+              board.togglePiece(rowToPlace,c);
+            }
           }
         }
       }
@@ -122,17 +145,26 @@ window.countNQueensSolutions = function(n) {
   var solutionCount = 0;
   var board = new Board({n:n});
 
+  var colUsed = [];
+  for(var i =0; i<n;i++){
+    colUsed.push(false);
+  }
+
   var recursivePlacement = function(rowToPlace){
     if(rowToPlace === n){
       solutionCount++;
     }else{
       for(var c = 0; c<n;c++){
-        board.togglePiece(rowToPlace,c);
-        if(board.hasAnyQueensConflictsOpt()){
+        if(!colUsed[c]){
           board.togglePiece(rowToPlace,c);
-        }else{
-          recursivePlacement(rowToPlace+1);
-          board.togglePiece(rowToPlace,c);
+          if(board.hasAnyQueensConflictsOpt()){
+            board.togglePiece(rowToPlace,c);
+          }else{
+            colUsed[c] = true;
+            recursivePlacement(rowToPlace+1);
+            board.togglePiece(rowToPlace,c);
+            colUsed[c] = false;
+          }
         }
       }
     }
