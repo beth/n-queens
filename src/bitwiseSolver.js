@@ -42,3 +42,26 @@ var bitwiseQueenSolver = function(n) {
   console.log('Bitwise runtime for ' + n + ' queens is:' + (Date.now()-startTime) + 'ms')
   return count;
 }
+
+var bitwiseRookSolver = function(n) {
+  var startTime = Date.now();
+  var count = 0;
+  var all = Math.pow(2, n) - 1;
+
+  var recurse = function(col) {
+    if (col === all) {
+      count++;
+    } else {
+      var poss = ~(col) & all;
+      while(poss) {
+        var choice = poss & -poss;
+        poss -= choice;
+        recurse(col | choice)
+      }
+    }
+  }
+
+  recurse(0, 0, 0);
+  console.log('Bitwise runtime for ' + n + ' rooks is:' + (Date.now()-startTime) + 'ms')
+  return count;
+}
