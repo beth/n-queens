@@ -62,6 +62,22 @@
       return this.hasAnyColConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
     },
 
+    hasColConflictAt: function(index){
+      return this.hasColConflictAt(index);
+    },
+
+    hasRowConflictAt: function(index){
+      return this.hasRowConflictAt(index);
+    },
+
+    hasAnyMajorDiagonalConflictAt: function(index){
+      return this.MajorDiagonalConflictAt(index);
+    },
+
+    hasAnyMajorDiagonalConflictAt: function(index){
+      return this.MinorDiagonalConflictAt(index);
+    }, 
+
     _isInBounds: function(rowIndex, colIndex) {
       return (
         0 <= rowIndex && rowIndex < this.get('n') &&
